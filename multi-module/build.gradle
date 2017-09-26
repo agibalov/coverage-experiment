@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.palantir:jacoco-coverage:0.4.0'
+    }
+}
+
+allprojects {
+    apply plugin: 'jacoco'
+}
+
+apply plugin: 'com.palantir.jacoco-full-report'
+
+subprojects {
+    afterEvaluate { Project project ->
+        project.tasks.findByName('jacocoTestReport').dependsOn('test')
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+jacocoFullReport.dependsOn {
+    subprojects*.test
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.1'
+}
+
+task clean(type: Delete) {
+    delete 'build'
+}
