@@ -1,11 +1,11 @@
 package me.loki2302;
 
+import lombok.Generated;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -18,6 +18,7 @@ public class App {
     }
 
     @RequestMapping("endpoint1")
+    @Generated // a bad idea, but seems to be the only way to exclude a single method (as of 0.8.0)
     public String endpoint1() {
         return "hello";
     }
